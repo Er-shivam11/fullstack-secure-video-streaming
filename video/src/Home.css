@@ -1,0 +1,132 @@
+/* home.css */
+.container {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    height: 100vh; /* Full viewport height */
+    position: relative; /* Ensure positioning context for absolute children */
+    background-size: cover; /* Ensures the image covers the entire container */
+    background-position: center; /* Centers the background image */
+}
+
+.content {
+    margin-bottom: 10vw;
+    width: 100%;
+    position: relative;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 80px 40px;
+    height: 100%;
+}
+
+.title {
+    font-size: 6rem; /* Increase the font size for more impact */
+    background: linear-gradient(90deg, #ff0080, #ff8c00, #ff0); /* Sea breeze colors */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Make text fill transparent */
+    text-shadow: 
+        3px 3px 5px rgba(0, 0, 0, 0.7), /* Stronger shadow for depth */
+        0 0 25px rgba(0, 191, 255, 0.5), /* Glowing effect */
+        0 0 5px rgba(0, 191, 255, 0.5); /* Glowing effect */
+    animation: glow 1.5s infinite alternate; /* Add a glowing animation */
+}
+
+/* Glow Animation Keyframes */
+@keyframes glow {
+    0% {
+        text-shadow: 
+            2px 2px 3px rgba(255, 255, 255, 0.7), 
+            0 0 0 rgba(209, 24, 117, 0.5), 
+            0 0 0 rgba(0, 191, 255, 0.5);
+    }
+    25% {
+        text-shadow: 
+            2px 2px 3px rgba(255, 255, 255, 0.5), 
+            0 0 0 rgba(209, 24, 117, 0.7), 
+            0 0 0 rgba(0, 191, 255, 0.6);
+    }
+    50% {
+        text-shadow: 
+            2px 2px 3px rgba(255, 255, 255, 0.6), 
+            0 0 0 rgba(209, 24, 117, 0.8), 
+            0 0 0 rgba(0, 191, 255, 0.7);
+    }
+    75% {
+        text-shadow: 
+            2px 2px 3px rgba(255, 255, 255, 0.8), 
+            0 0 0 rgba(209, 24, 117, 0.9), 
+            0 0 0 rgba(0, 191, 255, 0.8);
+    }
+    100% {
+        text-shadow: 
+            2px 2px 3px rgba(255, 255, 255, 1), 
+            0 0 0 rgb(26, 142, 163), 
+            0 0 0 rgb(68, 0, 255);
+    }
+}
+
+.description {
+    font-size: 1.5rem; /* Description font size */
+    margin: 20px 0;
+    background: linear-gradient(90deg, #ff0080, #ff8c00, #ff0); /* Sea breeze colors */
+}
+
+.features {
+    text-align: left; /* Align features text to the left */
+    margin: 20px 0; /* Margin for spacing */
+}
+
+.features h3 {
+    font-size: 2rem; /* Features title font size */
+    background: linear-gradient(90deg, #ff0080, #ff8c00, #ff0); /* Sea breeze colors */
+}
+
+.features ul {
+    list-style-type: disc; /* Bullet points for the list */
+    padding-left: 20px; /* Indentation for the list */
+}
+
+.cta-button {
+    background-color: #ff0080; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for button */
+    font-size: 1.2rem; /* Button font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.cta-button:hover {
+    background-color: #ff8c00; /* Change background on hover */
+}
+
+/* Media Queries for different devices */
+@media (max-width: 768px) {
+    .title {
+        font-size: 3rem; /* Adjust font size for mobile for better visibility */
+    }
+
+    .description {
+        font-size: 1rem; /* Adjust description size on smaller screens */
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .title {
+        font-size: 4.5rem; /* Adjust font size for tablet for better visibility */
+    }
+}
+
+@media (min-width: 1025px) {
+    .title {
+        font-size: 6rem; /* Keep original font size for desktop */
+    }
+}
+
+/* Add any additional media queries or styles as needed */

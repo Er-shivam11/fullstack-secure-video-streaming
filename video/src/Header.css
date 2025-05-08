@@ -1,0 +1,23 @@
+/* Header.css */
+.ott-header {
+    background-color: #111;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .ott-header nav a {
+    color: #bbb;
+    margin-left: 2rem;
+    text-decoration: none;
+  }
+  
+  .ott-header nav a:hover {
+    color: white;
+  }
+  

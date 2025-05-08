@@ -1,0 +1,104 @@
+version: "3"
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:6.2.0
+    container_name: zookeeper
+    networks:
+      - broker-kafka
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:6.2.0
+    container_name: kafka
+    networks:
+      - broker-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9093:9092"
+      - "9101:9101"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: kafka:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:3.27.0
+    networks:
+      - broker-kafka
+    depends_on:
+      - kafka
+      - zookeeper
+    ports:
+      - "19000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092
+
+  db:
+    image: mysql
+    restart: always
+    networks:
+      - broker-kafka
+    environment:
+      MYSQL_DATABASE: video_upload
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  phpMyAdmin:
+    image: phpmyadmin
+    networks:
+      - broker-kafka
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+    ports:
+      - "9092:80"
+    depends_on:
+      - db
+
+  # # Django App
+  video_uploader:
+    build:
+      context: ./video_uploader
+    container_name: video_uploader
+    networks:
+      - broker-kafka
+    depends_on:
+      - kafka
+      - db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./video_uploader:/app
+    environment:
+      - KAFKA_HOST=kafka:9092
+    command: python manage.py runserver 0.0.0.0:8000
+    
+  react_frontend:
+    build:
+      context: ./video  # Path to your React project directory
+    container_name: react_frontend
+    networks:
+      - broker-kafka
+    ports:
+      - "3000:3000"  # Expose React on port 3000
+    depends_on:
+      - video_uploader  # Wait for the Django backend to be ready
+    environment:
+      - REACT_APP_BACKEND_URL=http://video_uploader:8000
+
+networks:
+  broker-kafka:
+    driver: bridge

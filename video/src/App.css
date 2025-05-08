@@ -1,0 +1,55 @@
+.App {
+    text-align: center;
+    padding: 20px;
+    font-family: sans-serif;
+    background: #f8f9fa;
+    min-height: 100vh;
+  }
+  
+  .App-header {
+    background-color: #343a40;
+    padding: 20px;
+    color: white;
+  }
+  
+  .upload-form {
+    margin-top: 20px;
+  }
+  
+  .upload-form input[type="text"],
+  .upload-form input[type="file"] {
+    margin: 10px;
+    padding: 8px;
+    width: 60%;
+    max-width: 400px;
+  }
+  
+  .upload-form button {
+    padding: 10px 20px;
+    background: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .upload-form button:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .result {
+    margin-top: 20px;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  .App-footer {
+    margin-top: 40px;
+    padding: 10px;
+    background: #e9ecef;
+  }
+  
